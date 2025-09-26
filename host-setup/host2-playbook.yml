@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+  - name: Install python-Scapy and dependencies
+    apt: name={{ item }} update_cache=yes
+    loop: ['python3-scapy', 'net-tools']
+    become: yes
+
+  - name: Adjust arp table
+    command: arp -i enp0s8 -s 192.168.50.11 08:00:27:60:0c:50
+    become: yes
+    
+  - name: Adjust arp table
+    command: arp -i enp0s8 -s 192.168.51.1 08:00:27:3a:9f:12
+    become: yes
+
+  - name: Add static route
+    command: ip route add 192.168.51.1 via 192.168.50.11
+    become: yes
+
+  - name: Disable offloading features on enp0s8
+    command: ethtool --offload enp0s8 gso off tso off gro off
+    become: yes
