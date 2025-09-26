@@ -17,3 +17,7 @@
   - name: Disable offloading features on enp0s9
     command: ethtool --offload enp0s9 gso off tso off gro off
     become: yes
+
+  - name: Enable IPv4 forwarding
+    command: sysctl -w net.ipv4.ip_forward=1
+    become: yes
