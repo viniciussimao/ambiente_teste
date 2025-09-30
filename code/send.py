@@ -3,7 +3,7 @@
 import argparse
 import sys
 import socket
-import psutil
+#import psutil
 import struct
 import subprocess
 import re
@@ -48,6 +48,8 @@ def get_system_data(interface):
     # Coleta as informações do sistema
 #    cpu_usage = int(psutil.cpu_percent())
 #    mem_usage = int(psutil.virtual_memory().percent)
+    cpu_usage = 0
+    mem_usage = 0
 
     # Obtém o timestamp atual em microssegundos e ajusta para 32 bits
     timestamp = int(time.time() * 1e6)
