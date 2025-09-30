@@ -43,10 +43,7 @@ def handle_pkt(pkt):
     with open("dados_recebidos.txt", "a") as f:
         if f.tell() == 0:  # Verifica se o arquivo está vazio
             f.write("cpu_usage, mem_usage, timestamp, ")
-            f.write("switchID_t_3, ingress_port_3, egress_port_3, egress_spec_3, ingress_global_timestamp_3, egress_global_timestamp_3, enq_timestamp_3, enq_qdepth_3, deq_timedelta_3, deq_qdepth_3, ")
-            f.write("switchID_t_2, ingress_port_2, egress_port_2, egress_spec_2, ingress_global_timestamp_2, egress_global_timestamp_2, enq_timestamp_2, enq_qdepth_2, deq_timedelta_2, deq_qdepth_2, ")
             f.write("switchID_t_1, ingress_port_1, egress_port_1, egress_spec_1, ingress_global_timestamp_1, egress_global_timestamp_1, enq_timestamp_1, enq_qdepth_1, deq_timedelta_1, deq_qdepth_1\n")
-
 
         # Extraindo os dados do cabeçalho HostINT
         cpu_usage = pkt[HostINT].cpu_usage
@@ -75,9 +72,9 @@ def handle_pkt(pkt):
                 # Adiciona os dados do switch na mesma linha
                 linha += f", {switchID_t}, {ingress_port}, {egress_port}, {egress_spec}, {ingress_global_timestamp}, {egress_global_timestamp}, {enq_timestamp}, {enq_qdepth}, {deq_timedelta}, {deq_qdepth}"
 
-            # Se houver menos de 3 switches, preenche com valores vazios
-            if len(int_data) < 3:
-                linha += ", " * (10 * (3 - len(int_data)))
+            # Se houver menos de 1 switch, preenche com valores vazios
+            if len(int_data) < 1:
+                linha += ", " * (10 * (1 - len(int_data)))
 
         # Escreve a linha completa no arquivo
         f.write(linha + "\n")
